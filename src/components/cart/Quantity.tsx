@@ -13,13 +13,17 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Quantity = () => {
+export interface QuantityProps {
+  quantity: number;
+}
+
+const Quantity: React.FC<QuantityProps> = ({ quantity }) => {
   const classes = useStyles();
 
   return (
     <div className={clsx(classes.root)}>
       <MinusCircle color="#C7C7CC" />
-      <div>1</div>
+      <div>{quantity}</div>
       <PlusCircle color="#C7C7CC" />
     </div>
   );

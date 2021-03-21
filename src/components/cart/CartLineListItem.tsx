@@ -32,9 +32,25 @@ const useStyles = makeStyles(theme => ({
   price: {
     fontSize: '1rem',
   },
+  discountPrice: {
+    fontSize: '1rem',
+    color: 'green',
+    fontWeight: theme.typography.fontWeightMedium,
+  },
+  itemPricePanel: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+  },
 }));
 
-const CartLineListItem: React.FC<CartLineListItemProps> = ({ product }) => {
+const CartLineListItem: React.FC<CartLineListItemProps> = ({
+  product,
+  quantity,
+  itemPrice,
+  itemDiscount,
+  itemTotal,
+}) => {
   const classes = useStyles();
 
   return (
@@ -46,10 +62,19 @@ const CartLineListItem: React.FC<CartLineListItemProps> = ({ product }) => {
           className={classes.image}
         />
         <div className={clsx(classes.name)}>{product.name}</div>
+        <div className={clsx(classes.price)}>₹ {product.price}</div>
       </div>
       <div className={classes.quantityAndPrice}>
-        <Quantity />
-        <div className={clsx(classes.price)}>₹ {product.price}</div>
+        <Quantity quantity={quantity} />
+        <div className={classes.itemPricePanel}>
+          <div className={clsx(classes.price)}>₹ {itemPrice}</div>
+          {itemDiscount > 0 && (
+            <div className={clsx(classes.discountPrice)}>
+              Discount ₹ {itemDiscount}
+            </div>
+          )}
+          <div className={clsx(classes.price)}>₹ {itemTotal}</div>
+        </div>
       </div>
     </div>
   );

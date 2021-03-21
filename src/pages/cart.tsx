@@ -1,33 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CartLineList from '../components/cart/CartLineList';
 import { Cart } from '../types/cart';
 import EmptyCart from '../components/cart/EmptyCart';
-
-const cartMock: Cart = {
-  _id: 'cart-id',
-  cartLines: [
-    {
-      _id: 'cartline1',
-      product: {
-        _id: 'p1',
-        name: 'Chair',
-        price: 300,
-      },
-      quantity: 2,
-      itemPrice: 600,
-      itemDiscount: 50,
-      itemTotal: 550,
-    },
-  ],
-  summary: {
-    subTotal: 600,
-    discountTotal: 50,
-    totalPrice: 550,
-  },
-};
+import cartService from '../services/cart.service';
 
 const CartPage = () => {
-  const [cart] = useState<Cart | null>(cartMock);
+  const [cart, setCart] = useState<Cart | null>(null);
+
+  useEffect(() => {
+    cartService.getCartById('6056eaaa9b1e24c0390c1f0a').then(cartResponse => {
+      setCart(cartResponse);
+    });
+  }, []);
 
   return (
     <div>
