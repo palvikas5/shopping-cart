@@ -1,5 +1,5 @@
 const getCartById = async (cartId: string) => {
-  const url = `http://localhost:4444/carts/${cartId}`;
+  const url = `${process.env.REACT_APP_API_BASE_URL}/carts/${cartId}`;
   const response = await fetch(url);
   return response.json();
 };
