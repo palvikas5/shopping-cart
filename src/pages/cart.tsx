@@ -1,17 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import CartLineList from '../components/cart/CartLineList';
-import { Cart } from '../types/cart';
 import EmptyCart from '../components/cart/EmptyCart';
-import cartService from '../services/cart.service';
+import {
+  withCart,
+  WithCartContextProps,
+} from '../components/cart/cart-context/CartContext';
+import CartSummary from '../components/cart/CartSummary';
+import withLoader, { WithLoaderProps } from '../components/loader/withLoader';
 
-const CartPage = () => {
-  const [cart, setCart] = useState<Cart | null>(null);
+export interface CartPageProps extends WithCartContextProps, WithLoaderProps {}
+
+const CartPage: React.FC<CartPageProps> = ({
+  cartCtx: { isLoading, cart, loadCart },
+  setBusy,
+}) => {
+  useEffect(() => {
+    loadCart();
+  }, []);
 
   useEffect(() => {
-    cartService.getCartById('6056eaaa9b1e24c0390c1f0a').then(cartResponse => {
-      setCart(cartResponse);
-    });
-  }, []);
+    setBusy(isLoading);
+  }, [isLoading]);
 
   return (
     <div>
@@ -21,10 +30,11 @@ const CartPage = () => {
       ) : (
         <div>
           <CartLineList cartLines={cart.cartLines} />
+          <CartSummary {...cart.summary} />
         </div>
       )}
     </div>
   );
 };
 
-export default CartPage;
+export default withCart(withLoader(CartPage));

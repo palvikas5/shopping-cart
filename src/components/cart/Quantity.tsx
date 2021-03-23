@@ -15,16 +15,25 @@ const useStyles = makeStyles(() => ({
 
 export interface QuantityProps {
   quantity: number;
+  onQuantityChange: (newQuantity: number) => void;
 }
 
-const Quantity: React.FC<QuantityProps> = ({ quantity }) => {
+const Quantity: React.FC<QuantityProps> = ({ quantity, onQuantityChange }) => {
   const classes = useStyles();
+
+  const handleQuantityChange = (isIncrement: boolean) => () => {
+    if (isIncrement) {
+      onQuantityChange(quantity + 1);
+    } else if (!isIncrement && quantity > 1) {
+      onQuantityChange(quantity - 1);
+    }
+  };
 
   return (
     <div className={clsx(classes.root)}>
-      <MinusCircle color="#C7C7CC" />
+      <MinusCircle color="#C7C7CC" onClick={handleQuantityChange(false)} />
       <div>{quantity}</div>
-      <PlusCircle color="#C7C7CC" />
+      <PlusCircle color="#C7C7CC" onClick={handleQuantityChange(true)} />
     </div>
   );
 };

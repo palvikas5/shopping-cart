@@ -1,5 +1,5 @@
 export interface CartSummary {
   subTotal: number;
-  discountTotal: number;
+  totalDiscount: number;
   totalPrice: number;
 }

@@ -3,8 +3,9 @@ import { Avatar, makeStyles } from '@material-ui/core';
 import clsx from 'clsx';
 import { CartLine } from '../../types/cart-line';
 import Quantity from './Quantity';
+import { withCart, WithCartContextProps } from './cart-context/CartContext';
 
-export interface CartLineListItemProps extends CartLine {}
+export interface CartLineListItemProps extends CartLine, WithCartContextProps {}
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -45,13 +46,21 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const CartLineListItem: React.FC<CartLineListItemProps> = ({
+  _id,
   product,
   quantity,
   itemPrice,
   itemDiscount,
   itemTotal,
+  cartCtx: { updateQuantity },
 }) => {
   const classes = useStyles();
+
+  const handleQuantityChange = async (newQuantity: number) => {
+    if (newQuantity > 0) {
+      await updateQuantity(_id, newQuantity);
+    }
+  };
 
   return (
     <div className={classes.root}>
@@ -65,12 +74,12 @@ const CartLineListItem: React.FC<CartLineListItemProps> = ({
         <div className={clsx(classes.price)}>₹ {product.price}</div>
       </div>
       <div className={classes.quantityAndPrice}>
-        <Quantity quantity={quantity} />
+        <Quantity quantity={quantity} onQuantityChange={handleQuantityChange} />
         <div className={classes.itemPricePanel}>
           <div className={clsx(classes.price)}>₹ {itemPrice}</div>
           {itemDiscount > 0 && (
             <div className={clsx(classes.discountPrice)}>
-              Discount ₹ {itemDiscount}
+              ₹ {itemDiscount} off
             </div>
           )}
           <div className={clsx(classes.price)}>₹ {itemTotal}</div>
@@ -80,4 +89,4 @@ const CartLineListItem: React.FC<CartLineListItemProps> = ({
   );
 };
 
-export default CartLineListItem;
+export default withCart(CartLineListItem);

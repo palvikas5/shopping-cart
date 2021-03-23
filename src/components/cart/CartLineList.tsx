@@ -8,10 +8,14 @@ export interface CartLineListProps {
   cartLines: CartLine[];
 }
 
-const useStyles = makeStyles(() => ({
-  root: {
-    border: '1px solid',
+const useStyles = makeStyles(theme => ({
+  listItem: {
+    border: '1px solid #cacaca',
     borderRadius: '3px',
+    marginTop: theme.spacing(1),
+    '&:first-child': {
+      marginTop: 0,
+    },
   },
 }));
 
@@ -22,7 +26,7 @@ const CartLineList: React.FC<CartLineListProps> = ({ cartLines }) => {
     <div>
       <List>
         {cartLines.map(cartLine => (
-          <ListItem key={cartLine._id} className={clsx(classes.root)}>
+          <ListItem key={cartLine._id} className={clsx(classes.listItem)}>
             <CartLineListItem {...cartLine} />
           </ListItem>
         ))}
