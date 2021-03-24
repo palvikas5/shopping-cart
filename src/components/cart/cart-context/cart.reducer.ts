@@ -35,6 +35,13 @@ export const cartReducer = (
           0,
         ),
       };
+    case 'FETCH_CART_FAILED':
+    case 'ADD_PRODUCT_FAILED':
+    case 'UPDATE_QUANTITY_FAILED':
+      return {
+        ...prevState,
+        isLoading: false,
+      };
     default:
       return prevState;
   }

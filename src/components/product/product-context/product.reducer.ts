@@ -27,6 +27,11 @@ export const productReducer = (
         isLoading: false,
         products: action.products,
       };
+    case 'FETCH_PRODUCTS_FAILED':
+      return {
+        ...prevState,
+        isLoading: false,
+      };
     default:
       return prevState;
   }

@@ -59,17 +59,21 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
   return (
     <div>
       <h1>Products</h1>
-      <List className={classes.productsList}>
-        {products.map(product => (
-          <ListItem
-            key={product._id}
-            className={classes.productsListItem}
-            disableGutters
-          >
-            <ProductPod {...product} onAddProduct={handleAddProduct} />
-          </ListItem>
-        ))}
-      </List>
+      {products && products.length > 0 ? (
+        <List className={classes.productsList}>
+          {products.map(product => (
+            <ListItem
+              key={product._id}
+              className={classes.productsListItem}
+              disableGutters
+            >
+              <ProductPod {...product} onAddProduct={handleAddProduct} />
+            </ListItem>
+          ))}
+        </List>
+      ) : (
+        <div>No products found</div>
+      )}
       <Snackbar
         open={snackbarOpen}
         autoHideDuration={3000}

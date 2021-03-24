@@ -10,7 +10,7 @@ import {
   updateQuantitySuccess,
 } from './cart.action';
 import cartService from '../../../services/cart.service';
-import { getCartId } from '../../../utils/cart.helper';
+import { getCartId, removeCartId } from '../../../utils/cart.helper';
 import { Product } from '../../../types/product';
 import { CartLine } from '../../../types/cart-line';
 
@@ -39,6 +39,7 @@ const CartProvider: React.FC<CartContextProps> = ({ children }) => {
       if (cart) {
         dispatch(fetchCartSuccess(cart));
       } else {
+        removeCartId();
         dispatch(fetchCartFailed());
       }
     }
