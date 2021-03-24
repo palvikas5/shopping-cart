@@ -6,6 +6,9 @@ import CartSummaryItem from './CartSummaryItem';
 export interface CartSummaryProps extends CartSummary {}
 
 const useStyles = makeStyles(theme => ({
+  root: {
+    flex: 1,
+  },
   summary: {
     marginBottom: theme.spacing(2),
   },
@@ -19,14 +22,16 @@ const CartSummaryComponent: React.FC<CartSummaryProps> = ({
   const classes = useStyles();
 
   return (
-    <>
+    <div className={classes.root}>
       <h4>Summary</h4>
       <div className={classes.summary}>
         <CartSummaryItem name="Subtotal" value={subTotal} />
         <CartSummaryItem name="Discount total" value={totalDiscount} />
-        <CartSummaryItem name="Total Price" value={totalPrice} />
+        <b>
+          <CartSummaryItem name="Total Price" value={totalPrice} />
+        </b>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -1,10 +1,14 @@
 import React from 'react';
 import {
-  Avatar,
+  Box,
   Button,
   Card,
+  CardActionArea,
+  CardActions,
   CardContent,
+  CardMedia,
   makeStyles,
+  Typography,
 } from '@material-ui/core';
 import { Product } from '../../types/product';
 
@@ -14,8 +18,7 @@ export interface ProductPodProps extends Product {
 
 const useStyles = makeStyles(() => ({
   image: {
-    width: 100,
-    height: 100,
+    height: 140,
   },
 }));
 
@@ -33,18 +36,34 @@ const ProductPod: React.FC<ProductPodProps> = ({
 
   return (
     <Card>
-      <CardContent>
-        <Avatar
-          variant="rounded"
-          src="https://via.placeholder.com/100"
+      <CardActionArea>
+        <CardMedia
           className={classes.image}
+          image="https://via.placeholder.com/180"
+          title={name}
         />
-        <div>{name}</div>
-        <div>₹ {price}</div>
-        <Button variant="contained" color="primary" onClick={handleAddProduct}>
+        <CardContent>
+          <Box display="flex" justifyContent="space-between">
+            <Typography gutterBottom variant="h5" component="h2">
+              {name}
+            </Typography>
+            <Typography gutterBottom variant="h5" component="h2">
+              ₹ {price}
+            </Typography>
+          </Box>
+        </CardContent>
+      </CardActionArea>
+      <CardActions>
+        <Button
+          variant="contained"
+          size="small"
+          color="primary"
+          onClick={handleAddProduct}
+          fullWidth
+        >
           Add to cart
         </Button>
-      </CardContent>
+      </CardActions>
     </Card>
   );
 };

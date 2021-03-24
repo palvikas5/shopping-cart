@@ -9,6 +9,9 @@ export interface CartLineListProps {
 }
 
 const useStyles = makeStyles(theme => ({
+  root: {
+    flex: 1,
+  },
   listItem: {
     border: '1px solid #cacaca',
     borderRadius: '3px',
@@ -23,7 +26,7 @@ const CartLineList: React.FC<CartLineListProps> = ({ cartLines }) => {
   const classes = useStyles();
 
   return (
-    <div>
+    <div className={classes.root}>
       <List>
         {cartLines.map(cartLine => (
           <ListItem key={cartLine._id} className={clsx(classes.listItem)}>

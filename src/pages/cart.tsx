@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Box, Grid } from '@material-ui/core';
 import CartLineList from '../components/cart/CartLineList';
 import EmptyCart from '../components/cart/EmptyCart';
 import {
@@ -28,10 +29,17 @@ const CartPage: React.FC<CartPageProps> = ({
       {!cart ? (
         <EmptyCart />
       ) : (
-        <div>
-          <CartLineList cartLines={cart.cartLines} />
-          <CartSummary {...cart.summary} />
-        </div>
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={9}>
+            <Box component="div" flex="1">
+              <CartLineList cartLines={cart.cartLines} />
+            </Box>
+          </Grid>
+
+          <Grid item xs={12} sm={3}>
+            <CartSummary {...cart.summary} />
+          </Grid>
+        </Grid>
       )}
     </div>
   );

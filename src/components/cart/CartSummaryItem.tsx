@@ -1,10 +1,12 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core';
 
-const useStyle = makeStyles(() => ({
+const useStyle = makeStyles(theme => ({
   root: {
     display: 'flex',
     justifyContent: 'space-between',
+    margin: theme.spacing(1, 0),
+    fontWeight: 'inherit',
   },
 }));
 

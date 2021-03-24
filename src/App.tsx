@@ -9,7 +9,7 @@ import { ProductProvider } from './components/product/product-context/ProductCon
 
 const useStyles = makeStyles(() => ({
   main: {
-    marginTop: 56,
+    marginTop: 76,
   },
 }));
 
@@ -19,7 +19,7 @@ function App() {
   return (
     <Router>
       <CartProvider>
-        <Container maxWidth="lg">
+        <Container maxWidth="md">
           <Header />
           <main className={classes.main}>
             <ProductProvider>

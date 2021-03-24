@@ -3,6 +3,7 @@ import { ShoppingCart } from 'react-feather';
 import {
   AppBar,
   Badge,
+  Container,
   IconButton,
   makeStyles,
   Toolbar,
@@ -16,7 +17,8 @@ import {
 } from '../cart/cart-context/CartContext';
 
 const useStyles = makeStyles(() => ({
-  toolbar: {
+  toolbar: {},
+  toolbarContainer: {
     display: 'flex',
   },
   title: {
@@ -27,6 +29,9 @@ const useStyles = makeStyles(() => ({
     textDecoration: 'none',
     display: 'block',
   },
+  homePageButton: {
+    paddingLeft: 0,
+  },
 }));
 
 export interface HeaderProps extends WithCartContextProps {}
@@ -36,21 +41,23 @@ const Header: React.FC<HeaderProps> = ({ cartCtx: { totalItems } }) => {
   return (
     <AppBar position="fixed" color="primary">
       <Toolbar className={classes.toolbar}>
-        <Link to="/" className={clsx(classes.link, classes.title)}>
-          <IconButton color="inherit">
-            <Typography variant="h6" noWrap>
-              Shopping Cart
-            </Typography>
-          </IconButton>
-        </Link>
+        <Container maxWidth="md" className={classes.toolbarContainer}>
+          <Link to="/" className={clsx(classes.link, classes.title)}>
+            <IconButton color="inherit" className={classes.homePageButton}>
+              <Typography variant="h6" noWrap>
+                Shopping Cart
+              </Typography>
+            </IconButton>
+          </Link>
 
-        <Link to="/cart" className={classes.link}>
-          <IconButton color="inherit">
-            <Badge badgeContent={totalItems} showZero color="secondary">
-              <ShoppingCart />
-            </Badge>
-          </IconButton>
-        </Link>
+          <Link to="/cart" className={classes.link}>
+            <IconButton color="inherit">
+              <Badge badgeContent={totalItems} showZero color="secondary">
+                <ShoppingCart />
+              </Badge>
+            </IconButton>
+          </Link>
+        </Container>
       </Toolbar>
     </AppBar>
   );

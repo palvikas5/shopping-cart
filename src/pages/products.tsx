@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { List, ListItem, makeStyles, Snackbar } from '@material-ui/core';
+import { Grid, Snackbar } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import ProductPod from '../components/product/ProductPod';
 import withLoader, { WithLoaderProps } from '../components/loader/withLoader';
@@ -17,22 +17,11 @@ export interface ProductsPageProps
     WithCartContextProps,
     WithProductContextProps {}
 
-const useStyles = makeStyles(() => ({
-  productsList: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  productsListItem: {
-    flexBasis: '50%',
-  },
-}));
-
 const ProductsPage: React.FC<ProductsPageProps> = ({
   setBusy,
   cartCtx: { addToCart, loadCart },
   productCtx: { isLoading, loadProducts, products },
 }) => {
-  const classes = useStyles();
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   useEffect(() => {
@@ -60,17 +49,13 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
     <div>
       <h1>Products</h1>
       {products && products.length > 0 ? (
-        <List className={classes.productsList}>
+        <Grid container spacing={2}>
           {products.map(product => (
-            <ListItem
-              key={product._id}
-              className={classes.productsListItem}
-              disableGutters
-            >
+            <Grid item xs={12} sm={6} md={4} lg={3} key={product._id}>
               <ProductPod {...product} onAddProduct={handleAddProduct} />
-            </ListItem>
+            </Grid>
           ))}
-        </List>
+        </Grid>
       ) : (
         <div>No products found</div>
       )}
