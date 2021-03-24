@@ -5,8 +5,10 @@ import CartSummaryItem from './CartSummaryItem';
 
 export interface CartSummaryProps extends CartSummary {}
 
-const useStyles = makeStyles(() => ({
-  summary: {},
+const useStyles = makeStyles(theme => ({
+  summary: {
+    marginBottom: theme.spacing(2),
+  },
 }));
 
 const CartSummaryComponent: React.FC<CartSummaryProps> = ({
